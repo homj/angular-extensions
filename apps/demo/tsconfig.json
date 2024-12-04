@@ -22,7 +22,7 @@
             "path": "./tsconfig.editor.json"
         }
     ],
-    "extends": "../../tsconfig.json",
+    "extends": "../../tsconfig.base.json",
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": true,
