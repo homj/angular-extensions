@@ -2,6 +2,7 @@
     "root": true,
     "ignorePatterns": ["**/*"],
     "plugins": ["@nx"],
+    "extends": ["@bynary/eslint-config/angular"],
     "overrides": [
         {
             "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
