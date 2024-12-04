@@ -77,7 +77,7 @@
         "@nx/plugin": "20.1.4",
         "@nx/web": "20.1.4",
         "@nx/workspace": "20.1.4",
-        "@schematics/angular": "18.2.9",
+        "@schematics/angular": "19.0.2",
         "@swc-node/register": "1.9.2",
         "@swc/cli": "0.3.14",
         "@swc/core": "1.5.7",
