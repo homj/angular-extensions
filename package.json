@@ -60,7 +60,7 @@
         "@angular-eslint/eslint-plugin": "20.7.0",
         "@angular-eslint/eslint-plugin-template": "20.7.0",
         "@angular-eslint/template-parser": "20.7.0",
-        "@angular/cli": "20.3.9",
+        "@angular/cli": "~20.3.0",
         "@angular/compiler-cli": "20.3.9",
         "@angular/language-service": "20.3.9",
         "@bynary/eslint-config": "^0.1.0",
@@ -121,5 +121,8 @@
         "typedoc-theme-hierarchy": "^6.0.0",
         "typescript": "5.9.3"
     },
-    "nx": {}
+    "nx": {},
+    "overrides": {
+        "parse5": "6.0.1"
+    }
 }

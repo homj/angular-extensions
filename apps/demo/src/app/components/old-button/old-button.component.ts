@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Attribute, Component, ElementRef, HostBinding, inject, Input, OnInit, Renderer2 } from '@angular/core';
 
 /**
@@ -8,7 +8,7 @@ import { Attribute, Component, ElementRef, HostBinding, inject, Input, OnInit, R
  */
 @Component({
     selector: 'demo-old-button',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './old-button.component.html',
     styleUrls: ['../button/button.component.scss'],
     host: {

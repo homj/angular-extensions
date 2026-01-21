@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
 import { bindAttribute, bindBooleanAttribute, useAttribute } from '@bynary/composables/attribute';
 import { bindModifier, bindModifierGroup, provideBaseClass } from '@bynary/composables/class';
@@ -11,7 +11,7 @@ export type ButtonColor = 'red' | 'green' | undefined;
  */
 @Component({
     selector: 'demo-button',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss'],
     encapsulation: ViewEncapsulation.None,
