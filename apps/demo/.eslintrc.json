@@ -1,15 +1,9 @@
 {
-    "extends": [
-        "../../.eslintrc.json"
-    ],
-    "ignorePatterns": [
-        "!**/*"
-    ],
+    "extends": ["../../.eslintrc.json"],
+    "ignorePatterns": ["!**/*"],
     "overrides": [
         {
-            "files": [
-                "*.ts"
-            ],
+            "files": ["*.ts"],
             "rules": {
                 "@angular-eslint/directive-selector": [
                     "error",
@@ -26,20 +20,14 @@
                         "prefix": "demo",
                         "style": "kebab-case"
                     }
-                ]
+                ],
+                "@angular-eslint/prefer-standalone": "off"
             },
-            "extends": [
-                "plugin:@nx/angular",
-                "plugin:@angular-eslint/template/process-inline-templates"
-            ]
+            "extends": ["plugin:@nx/angular", "plugin:@angular-eslint/template/process-inline-templates"]
         },
         {
-            "files": [
-                "*.html"
-            ],
-            "extends": [
-                "plugin:@nx/angular-template"
-            ],
+            "files": ["*.html"],
+            "extends": ["plugin:@nx/angular-template"],
             "rules": {}
         }
     ]

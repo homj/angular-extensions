@@ -60,7 +60,7 @@
         "@angular-eslint/eslint-plugin": "19.8.1",
         "@angular-eslint/eslint-plugin-template": "19.8.1",
         "@angular-eslint/template-parser": "19.8.1",
-        "@angular/cli": "19.2.9",
+        "@angular/cli": "~19.2.0",
         "@angular/compiler-cli": "19.2.9",
         "@angular/language-service": "19.2.9",
         "@bynary/eslint-config": "^0.1.0",
