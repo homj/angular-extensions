@@ -1,5 +1,4 @@
 {
-    "eslint.validate": [
-        "json"
-    ]
+    "eslint.validate": ["json"],
+    "snyk.advanced.autoSelectOrganization": true
 }
