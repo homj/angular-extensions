@@ -17,14 +17,14 @@ jobs:
     install-deps:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v6
             - name: Cache node modules
               id: cache
-              uses: actions/cache@v3
+              uses: actions/cache@v5
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('package-lock.json') }}
-            - uses: actions/setup-node@v4
+            - uses: actions/setup-node@v6
               if: steps.cache.outputs.cache-hit != 'true'
               with:
                   node-version-file: '.nvmrc'
@@ -37,9 +37,9 @@ jobs:
         needs: install-deps
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
             - name: Cache node modules
-              uses: actions/cache@v3
+              uses: actions/cache@v5
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('package-lock.json') }}
@@ -47,6 +47,6 @@ jobs:
               run: scripts/build-docs.sh
 
             - name: Upload Docs to Wiki
-              uses: Andrew-Chen-Wang/github-wiki-action@v4
+              uses: Andrew-Chen-Wang/github-wiki-action@v5
               with:
                   path: 'docs'
