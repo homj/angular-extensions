@@ -1,4 +1,3 @@
-
 import { Attribute, Component, ElementRef, HostBinding, inject, Input, OnInit, Renderer2 } from '@angular/core';
 
 /**

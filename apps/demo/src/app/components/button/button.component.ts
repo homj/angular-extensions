@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
 import { bindAttribute, bindBooleanAttribute, useAttribute } from '@bynary/composables/attribute';
 import { bindModifier, bindModifierGroup, provideBaseClass } from '@bynary/composables/class';
