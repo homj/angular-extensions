@@ -4,9 +4,7 @@ import { bindStorage, IBindStorageOptions } from './bind-storage.composable';
 import * as readFromStorageModule from './read-from-storage.composable';
 import * as writeToStorageModule from './write-to-storage.composable';
 
-
 describe('bindStorage', () => {
-
     it('should be a function', () => {
         expect(typeof bindStorage).toEqual('function');
     });
@@ -40,9 +38,9 @@ describe('bindStorage', () => {
     });
 
     describe('integration', () => {
-
         @Component({
-            template: ''
+            template: '',
+            standalone: true
         })
         class TestComponent {
             value = signal<string | null | undefined>('foo');
@@ -58,7 +56,7 @@ describe('bindStorage', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                declarations: [ TestComponent ]
+                imports: [TestComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestComponent);

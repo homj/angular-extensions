@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { writeToStorage } from './write-to-storage.composable';
 
 describe('writeToStorage', () => {
-
     @Component({
-        template: ''
+        template: '',
+        standalone: true
     })
     class TestComponent {
         value = signal<string | null | undefined>('foo');
@@ -22,7 +22,7 @@ describe('writeToStorage', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ TestComponent ]
+            imports: [TestComponent]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestComponent);
@@ -47,10 +47,7 @@ describe('writeToStorage', () => {
         expect(localStorage.getItem('test')).toEqual('bar');
     });
 
-    it.each([
-        null,
-        undefined
-    ])('should remove the value from storage, if it is nil', (nextValue) => {
+    it.each([null, undefined])('should remove the value from storage, if it is nil', (nextValue) => {
         component.value.set(nextValue);
 
         fixture.detectChanges();
