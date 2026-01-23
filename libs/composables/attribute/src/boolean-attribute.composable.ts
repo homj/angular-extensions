@@ -176,7 +176,7 @@ const fromAttributeValue = (value: string | null | undefined) => {
  *
  * @example
  * ```ts
- * import { useBooleanAttribute } from '@bynary/composables/attribute';
+ * import { useBooleanAttribute } from '@homj/composables/attribute';
  *
  * @Component({
  *     selector: 'my-component'
@@ -212,7 +212,7 @@ export const useBooleanAttribute = (
  *
  * @example
  * ```ts
- * import { bindBooleanAttribute } from '@bynary/composables/attribute';
+ * import { bindBooleanAttribute } from '@homj/composables/attribute';
  *
  * @Component({
  *     selector: 'my-component'

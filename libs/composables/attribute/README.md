@@ -1,3 +1,3 @@
-# @bynary/composables/attribute
+# @homj/composables/attribute
 
-Secondary entry point of `@bynary/composables`. It can be used by importing from `@bynary/composables/attribute`.
+Secondary entry point of `@homj/composables`. It can be used by importing from `@homj/composables/attribute`.

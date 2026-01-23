@@ -1,25 +1,25 @@
 {
-    "name": "@bynary/angular-extensions",
+    "name": "@homj/angular-extensions",
     "description": "Extensions to help you build Angular applications faster",
     "version": "0.0.0",
     "license": "MIT",
-    "author": "bynary GmbH (https://www.bynary.io)",
+    "author": "Johannes Homeier",
     "contributors": [
         {
             "name": "Johannes Homeier",
-            "email": "j.homeier@bynary.io"
+            "email": "j.homeier@proton.me"
         }
     ],
     "bugs": {
-        "url": "https://github.com/bynaryDE/angular-extensions/issues"
+        "url": "https://github.com/homj/angular-extensions/issues"
     },
-    "homepage": "https://github.com/bynaryDE/angular-extensions",
+    "homepage": "https://github.com/homj/angular-extensions",
     "repository": {
         "type": "git",
-        "url": "https://github.com/bynaryDE/angular-extensions"
+        "url": "https://github.com/homj/angular-extensions"
     },
     "keywords": [
-        "bynary",
+        "homj",
         "angular",
         "frontend",
         "typescript",
@@ -63,7 +63,6 @@
         "@angular/cli": "21.0.6",
         "@angular/compiler-cli": "21.0.9",
         "@angular/language-service": "21.0.9",
-        "@bynary/eslint-config": "^0.1.0",
         "@commitlint/cli": "^19.3.0",
         "@commitlint/config-conventional": "^19.2.2",
         "@commitlint/config-nx-scopes": "^19.3.1",

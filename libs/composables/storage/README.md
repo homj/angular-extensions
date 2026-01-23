@@ -1,3 +1,3 @@
-# @bynary/composables/storage
+# @homj/composables/storage
 
-Secondary entry point of `@bynary/composables`. It can be used by importing from `@bynary/composables/storage`.
+Secondary entry point of `@homj/composables`. It can be used by importing from `@homj/composables/storage`.

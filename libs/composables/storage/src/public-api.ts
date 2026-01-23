@@ -2,7 +2,7 @@
  * @packageDocumentation
  * Composables for reading and writing data to the storage of the browser.
  *
- * @module @bynary/composables/storage
+ * @module @homj/composables/storage
  */
 
 export { IBindStorageOptions, bindStorage } from './bind-storage.composable';

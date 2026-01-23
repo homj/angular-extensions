@@ -48,7 +48,7 @@ const normalizeBindModifierOptions = (options?: IBindModifierOptions): Normalize
  * It is recommended to provide the base class via `provideBaseClass`
  *
  * ```ts
- * import { bindModifier } from '@bynary/composables/class';
+ * import { bindModifier } from '@homj/composables/class';
  *
  * @Component({
  *     selector: 'my-component',
@@ -76,7 +76,7 @@ const normalizeBindModifierOptions = (options?: IBindModifierOptions): Normalize
  * You can also provide the base class per use via the {@link options IBinModifierOptions}:
  *
  * ```ts
- * import { bindModifier } from '@bynary/composables/class';
+ * import { bindModifier } from '@homj/composables/class';
  *
  * @Component({
  *     selector: 'my-component'

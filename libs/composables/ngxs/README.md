@@ -1,3 +1,3 @@
-# @bynary/composables/ngxs
+# @homj/composables/ngxs
 
-Secondary entry point of `@bynary/composables`. It can be used by importing from `@bynary/composables/ngxs`.
+Secondary entry point of `@homj/composables`. It can be used by importing from `@homj/composables/ngxs`.

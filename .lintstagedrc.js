@@ -1,3 +1,3 @@
 module.exports = {
-    '*': ['npx nx format', (files) => `npx eslint ${files.join(' ')}`]
+    '*.{js,jsx,ts,tsx,html,json,css,scss}': ['npx nx format', (files) => `npx eslint ${files.join(' ')}`]
 };

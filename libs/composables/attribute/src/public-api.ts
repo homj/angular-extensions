@@ -17,7 +17,7 @@
  * }
  * ```
  *
- * @module @bynary/composables/attribute
+ * @module @homj/composables/attribute
  */
 
 export * from './attribute.composable';

@@ -16,9 +16,9 @@ The `apps` folder contains the following projects:
 
 ### Libraries
 
-| Name          | Import path                              | Description                                                                                   |
-| ------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `composables` | [@bynary/composables](libs/composables/) | A set of composable functions to help you build Angular applications faster. Based on signals |
+| Name          | Import path                            | Description                                                                                   |
+| ------------- | -------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `composables` | [@homj/composables](libs/composables/) | A set of composable functions to help you build Angular applications faster. Based on signals |
 
 ## Development Setup
 
@@ -65,11 +65,11 @@ We want to fix all the issues as soon as possible, but before fixing a bug, we n
 
 A minimal reproduction allows us to quickly confirm a bug (or point out a coding problem) as well as confirm that we are fixing the right problem.
 
-You can file new issues by selecting from our [new issue templates](https://github.com/bynaryDE/angular-extensions/issues/new/choose) and filling out the issue template.
+You can file new issues by selecting from our [new issue templates](https://github.com/homj/angular-extensions/issues/new/choose) and filling out the issue template.
 
 ### Submitting a feature request
 
-You can request a new feature by [submitting an issue](https://github.com/bynaryDE/angular-extensions/issues/new/choose) to our GitHub Repository.
+You can request a new feature by [submitting an issue](https://github.com/homj/angular-extensions/issues/new/choose) to our GitHub Repository.
 Please provide as much detail and context as possible.
 
 ### Submitting a pull request
@@ -146,4 +146,4 @@ The main source of documentation alongside the README.md files is extracted from
 To update the documentation, you need to update the JSDoc comments in the source code and run `npm run generate-dcs` to generate the documentation.
 This will update the `docs` folder with the latest documentation.
 
-When a pull request is merged into the `main` branch, the documentation will be automatically deployed to the [wiki](https://github.com/bynaryDE/angular-extensions/wiki).
+When a pull request is merged into the `main` branch, the documentation will be automatically deployed to the [wiki](https://github.com/homj/angular-extensions/wiki).

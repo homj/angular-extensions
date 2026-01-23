@@ -1,7 +1,7 @@
 import { Attribute, Component, ElementRef, HostBinding, inject, Input, OnInit, Renderer2 } from '@angular/core';
 
 /**
- * A demo button without using @bynary/composables
+ * A demo button without using @homj/composables
  *
  * Has the same functionality as the {@link ButtonComponent} component.
  */

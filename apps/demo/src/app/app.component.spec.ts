@@ -35,23 +35,23 @@ describe('AppComponent', () => {
 
     describe('title', () => {
         it(`should have the correct title`, () => {
-            expect(fixture.componentInstance.title()).toEqual('@bynary/composables');
+            expect(fixture.componentInstance.title()).toEqual('@homj/composables');
         });
 
         it('should render the title inside a h1', () => {
             const h1 = fixture.debugElement.query(By.css('h1'));
 
-            expect(h1.nativeElement.textContent).toContain('@bynary/composables');
+            expect(h1.nativeElement.textContent).toContain('@homj/composables');
         });
 
         it('should bind the title to the document', () => {
-            expect(document.title).toContain('@bynary/composables');
+            expect(document.title).toContain('@homj/composables');
         });
 
         it('should include the click counter after the first click', () => {
             fixture.componentInstance.incrementCounter();
 
-            expect(fixture.componentInstance.title()).toEqual('@bynary/composables - Clicks: 1');
+            expect(fixture.componentInstance.title()).toEqual('@homj/composables - Clicks: 1');
         });
     });
 
