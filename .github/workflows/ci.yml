@@ -4,10 +4,13 @@ on:
     push:
         branches:
             - develop
+            
     pull_request:
         branches:
             - develop
             - main
+
+    workflow_dispatch:
 
 jobs:
     install-deps:
