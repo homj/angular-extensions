@@ -4,7 +4,6 @@ import { useStorage } from './use-storage.composable';
 import * as bindStorageModule from './bind-storage.composable';
 
 describe('useStorage', () => {
-
     it('should be a function', () => {
         expect(typeof useStorage).toEqual('function');
     });
@@ -31,9 +30,9 @@ describe('useStorage', () => {
     });
 
     describe('integration', () => {
-
         @Component({
-            template: ''
+            template: '',
+            standalone: true
         })
         class TestComponent {
             value = useStorage('test', { storage: sessionStorage });
@@ -44,7 +43,7 @@ describe('useStorage', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                declarations: [ TestComponent ]
+                imports: [TestComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestComponent);

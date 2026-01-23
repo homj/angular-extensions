@@ -62,7 +62,7 @@ const normalizeOptions = (options?: IBindModifierGroupOptions) => ({
  *
  * @example
  * ```ts
- * import { bindModifierGroup } from '@bynary/composables/class';
+ * import { bindModifierGroup } from '@homj/composables/class';
  *
  * @Component({
  *     selector: 'my-component',
@@ -124,7 +124,7 @@ export const bindModifierGroup = <Modifier extends string | null | undefined, T 
  * @example
  *
  * ```ts
- * import { useModifierGroup } from '@bynary/composables/class';
+ * import { useModifierGroup } from '@homj/composables/class';
  *
  * @Component({
  *     selector: 'my-component',

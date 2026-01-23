@@ -1,15 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { Attribute, Component, ElementRef, HostBinding, inject, Input, OnInit, Renderer2 } from '@angular/core';
 
 /**
- * A demo button without using @bynary/composables
+ * A demo button without using @homj/composables
  *
  * Has the same functionality as the {@link ButtonComponent} component.
  */
 @Component({
     selector: 'demo-old-button',
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './old-button.component.html',
     styleUrls: ['../button/button.component.scss'],
     host: {

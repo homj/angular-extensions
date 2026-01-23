@@ -19,9 +19,7 @@ describe('attribute.composable.ts', () => {
                             provide: ElementRef,
                             useValue: {
                                 nativeElement: {
-                                    getAttributeNS: jest
-                                        .fn()
-                                        .mockImplementation(() => initialAssignedValue)
+                                    getAttributeNS: jest.fn().mockImplementation(() => initialAssignedValue)
                                 }
                             }
                         },
@@ -37,10 +35,7 @@ describe('attribute.composable.ts', () => {
             it('should call bindAttribute with the correct arguments', () => {
                 TestBed.runInInjectionContext(() => {
                     // Arrange
-                    const bindAttributeSpy = jest.spyOn(
-                        attributeModule,
-                        'bindAttribute'
-                    );
+                    const bindAttributeSpy = jest.spyOn(attributeModule, 'bindAttribute');
 
                     // Act
                     const value = useAttribute('name', {
@@ -50,15 +45,11 @@ describe('attribute.composable.ts', () => {
                     });
 
                     // Assert
-                    expect(bindAttributeSpy).toHaveBeenCalledWith(
-                        'name',
-                        value,
-                        {
-                            defaultValue: 'bar',
-                            namespace: 'my',
-                            target: inject(ElementRef).nativeElement
-                        }
-                    );
+                    expect(bindAttributeSpy).toHaveBeenCalledWith('name', value, {
+                        defaultValue: 'bar',
+                        namespace: 'my',
+                        target: inject(ElementRef).nativeElement
+                    });
 
                     bindAttributeSpy.mockRestore();
                 });
@@ -89,19 +80,17 @@ describe('attribute.composable.ts', () => {
                 });
 
                 it('the defaultValue, if initialValue is `null`', () => {
-                        TestBed.runInInjectionContext(() => {
-                            // Act
-                            const result = useAttribute('name', {
-                                initialValue: null,
-                                defaultValue: 'bar'
-                            });
-
-                            // Assert
-                            expect(result()).toEqual('bar');
+                    TestBed.runInInjectionContext(() => {
+                        // Act
+                        const result = useAttribute('name', {
+                            initialValue: null,
+                            defaultValue: 'bar'
                         });
-                    }
-                );
 
+                        // Assert
+                        expect(result()).toEqual('bar');
+                    });
+                });
 
                 it('the initial assigned value in the DOM if no initialValue has been defined', () => {
                     TestBed.runInInjectionContext(() => {
@@ -134,7 +123,8 @@ describe('attribute.composable.ts', () => {
             @Component({
                 // eslint-disable-next-line @angular-eslint/component-selector
                 selector: 'button[bxTestButton]',
-                template: ''
+                template: '',
+                standalone: true
             })
             class TestButtonComponent {
                 readonly type = useAttribute('type', {
@@ -150,7 +140,9 @@ describe('attribute.composable.ts', () => {
                 template: `
                     <button #buttonA bxTestButton role="menuitem"></button>
                     <button #buttonB bxTestButton type="submit"></button>
-                `
+                `,
+                standalone: true,
+                imports: [TestButtonComponent]
             })
             class ParentComponent {
                 @ViewChild('buttonA')
@@ -165,7 +157,7 @@ describe('attribute.composable.ts', () => {
 
             beforeEach(async () => {
                 await TestBed.configureTestingModule({
-                    declarations: [ ParentComponent, TestButtonComponent ]
+                    imports: [ParentComponent, TestButtonComponent]
                 }).compileComponents();
 
                 fixture = TestBed.createComponent(ParentComponent);
@@ -181,9 +173,7 @@ describe('attribute.composable.ts', () => {
 
                 it('should fall back to default value, when the value is set to `undefined`', () => {
                     // Arrange
-                    const buttonADebug = fixture.debugElement.queryAll(
-                        By.directive(TestButtonComponent)
-                    )[0];
+                    const buttonADebug = fixture.debugElement.queryAll(By.directive(TestButtonComponent))[0];
 
                     // Act
                     component.buttonA.type.set(undefined);
@@ -195,9 +185,7 @@ describe('attribute.composable.ts', () => {
 
                 it('should not fall back to default value, when the value is set to `null`', () => {
                     // Arrange
-                    const buttonADebug = fixture.debugElement.queryAll(
-                        By.directive(TestButtonComponent)
-                    )[0];
+                    const buttonADebug = fixture.debugElement.queryAll(By.directive(TestButtonComponent))[0];
 
                     // Act
                     component.buttonA.type.set(null);
@@ -217,18 +205,14 @@ describe('attribute.composable.ts', () => {
             describe('when a namespace has been defined', () => {
                 it('should set the attribute with the namespace', () => {
                     // Arrange
-                    const buttonADebug = fixture.debugElement.queryAll(
-                        By.directive(TestButtonComponent)
-                    )[0];
+                    const buttonADebug = fixture.debugElement.queryAll(By.directive(TestButtonComponent))[0];
 
                     // Act
                     component.buttonA.label.set('Button A');
                     fixture.detectChanges();
 
                     // Assert
-                    expect(buttonADebug.attributes['bx:label']).toEqual(
-                        'Button A'
-                    );
+                    expect(buttonADebug.attributes['bx:label']).toEqual('Button A');
                 });
             });
         });
@@ -266,7 +250,8 @@ describe('attribute.composable.ts', () => {
 
         describe('integration', () => {
             @Component({
-                template: ''
+                template: '',
+                standalone: true
             })
             class TestComponent {
                 readonly name = signal<string | null | undefined>('test');
@@ -287,7 +272,7 @@ describe('attribute.composable.ts', () => {
 
             beforeEach(async () => {
                 await TestBed.configureTestingModule({
-                    declarations: [ TestComponent ]
+                    imports: [TestComponent]
                 }).compileComponents();
 
                 fixture = TestBed.createComponent(TestComponent);
@@ -305,32 +290,26 @@ describe('attribute.composable.ts', () => {
             });
 
             it('should set a namespaced attribute correctly', () => {
-                expect(fixture.debugElement.attributes['my:title']).toEqual(
-                    'Hello'
-                );
+                expect(fixture.debugElement.attributes['my:title']).toEqual('Hello');
             });
 
-            it.each([ null, undefined ])(
-                'should remove the attribute, when setting the signal\'s value to %s',
+            it.each([null, undefined])(
+                "should remove the attribute, when setting the signal's value to %s",
                 (value) => {
                     component.name.set(value);
 
                     fixture.detectChanges();
 
-                    expect(
-                        fixture.debugElement.attributes['name']
-                    ).toBeUndefined();
+                    expect(fixture.debugElement.attributes['name']).toBeUndefined();
                 }
             );
 
-            it('should change the attribute, when the signal\'s value changes', () => {
+            it("should change the attribute, when the signal's value changes", () => {
                 component.role.set('button');
 
                 fixture.detectChanges();
 
-                expect(fixture.debugElement.attributes['role']).toEqual(
-                    'button'
-                );
+                expect(fixture.debugElement.attributes['role']).toEqual('button');
             });
 
             it('should bind the attribute on the custom target', () => {

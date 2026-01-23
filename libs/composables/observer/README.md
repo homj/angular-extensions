@@ -1,3 +1,3 @@
-# @bynary/composables/observer
+# @homj/composables/observer
 
-Secondary entry point of `@bynary/composables`. It can be used by importing from `@bynary/composables/observer`.
+Secondary entry point of `@homj/composables`. It can be used by importing from `@homj/composables/observer`.

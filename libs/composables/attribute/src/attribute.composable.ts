@@ -69,7 +69,7 @@ export interface IBindAttributeOptions {
      *
      * @example
      * ```ts
-     * import { useAttribute } from '@bynary/composables/attribute';
+     * import { useAttribute } from '@homj/composables/attribute';
      *
      * @Component({
      *     selector: 'my-component'
@@ -144,7 +144,7 @@ const normalizeBindAttributeOptions = (options?: IBindAttributeOptions): Normali
  * By default, this composable will read the value of the attribute from the usage in the template
  *
  * ```ts
- * import { useAttribute } from '@bynary/composables/attribute';
+ * import { useAttribute } from '@homj/composables/attribute';
  *
  * @Component({
  *     selector: 'my-component'
@@ -169,7 +169,7 @@ const normalizeBindAttributeOptions = (options?: IBindAttributeOptions): Normali
  * You can also change the value of the attribute programmatically by using the returned signal:
  *
  * ```ts
- * import { useAttribute } from '@bynary/composables/attribute';
+ * import { useAttribute } from '@homj/composables/attribute';
  *
  * @Component({
  *     selector: 'my-component'
@@ -218,7 +218,7 @@ export function useAttribute(
  *
  * @example
  * ```ts
- * import { bindAttribute } from '@bynary/composables/attribute';
+ * import { bindAttribute } from '@homj/composables/attribute';
  *
  * @Component({
  *     selector: 'my-component'

@@ -9,7 +9,7 @@ export type ClassList = string | string[];
  *
  * @example
  * ```ts
- * import { bindClasses } from '@bynary/composables/class';
+ * import { bindClasses } from '@homj/composables/class';
  *
  * @Component({
  *     selector: 'my-component'
@@ -90,7 +90,7 @@ export const bindClasses = <T extends Signal<ClassList | null>>(value: T) => {
  *
  * @example Default usage
  * ```ts
- * import { useClasses } from '@bynary/composables/class';
+ * import { useClasses } from '@homj/composables/class';
  *
  * @Component({
  *     selector: 'my-component'
@@ -125,7 +125,7 @@ export const bindClasses = <T extends Signal<ClassList | null>>(value: T) => {
  * Classes set form somewhere else (e.g. the template) will be untouched, except for ones that are contained in new or previous list.
  *
  * ```ts
- * import { useClasses } from '@bynary/composables/class';
+ * import { useClasses } from '@homj/composables/class';
  *
  * @Component({
  *     selector: 'my-component',

@@ -2,7 +2,7 @@
  * @packageDocumentation
  * Composables to observe events and changes
  *
- * @module @bynary/composables/observer
+ * @module @homj/composables/observer
  */
 
 export * from './breakpoint.composable';

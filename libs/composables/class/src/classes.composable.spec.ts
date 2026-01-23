@@ -4,10 +4,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { useClasses } from './classes.composable';
 
 @Component({
-    template: ''
+    template: '',
+    standalone: true
 })
 class TestComponent {
-    readonly classes = useClasses([ 'test', 'test2' ]);
+    readonly classes = useClasses(['test', 'test2']);
 }
 
 describe('useClasses', () => {
@@ -16,7 +17,7 @@ describe('useClasses', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ TestComponent ]
+            imports: [TestComponent]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestComponent);
@@ -36,8 +37,8 @@ describe('useClasses', () => {
         });
     });
 
-    it('should remove the previous classes and add new classes, when changing the signal\'s value', () => {
-        component.classes.set([ 'foo', 'bar' ]);
+    it("should remove the previous classes and add new classes, when changing the signal's value", () => {
+        component.classes.set(['foo', 'bar']);
 
         fixture.detectChanges();
 

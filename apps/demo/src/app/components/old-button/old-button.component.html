@@ -1,2 +1,4 @@
-<div class="c-button__loading-indicator" *ngIf="loading"></div>
+@if (loading) {
+<div class="c-button__loading-indicator"></div>
+}
 <ng-content></ng-content>

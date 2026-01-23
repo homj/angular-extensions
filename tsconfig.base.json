@@ -15,12 +15,12 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
-            "@bynary/composables/attribute": ["libs/composables/attribute/src/index.ts"],
-            "@bynary/composables/class": ["libs/composables/class/src/index.ts"],
-            "@bynary/composables/ngxs": ["libs/composables/ngxs/src/index.ts"],
-            "@bynary/composables/observer": ["libs/composables/observer/src/index.ts"],
-            "@bynary/composables/storage": ["libs/composables/storage/src/index.ts"],
-            "@bynary/composables/title": ["libs/composables/title/src/index.ts"]
+            "@homj/composables/attribute": ["libs/composables/attribute/src/index.ts"],
+            "@homj/composables/class": ["libs/composables/class/src/index.ts"],
+            "@homj/composables/ngxs": ["libs/composables/ngxs/src/index.ts"],
+            "@homj/composables/observer": ["libs/composables/observer/src/index.ts"],
+            "@homj/composables/storage": ["libs/composables/storage/src/index.ts"],
+            "@homj/composables/title": ["libs/composables/title/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

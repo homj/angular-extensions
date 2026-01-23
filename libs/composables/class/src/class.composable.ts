@@ -39,7 +39,7 @@ const normalizeUseClassOptions = (options?: IUseClassOptions): NormalizedUseClas
  * @example
  *
  * ```ts
- * import { useClass } from '@bynary/composables/class';
+ * import { useClass } from '@homj/composables/class';
  *
  * @Component({
  *     selector: 'my-component'
@@ -75,7 +75,7 @@ export const useClass = (className: string, options?: IUseClassOptions): Writabl
  *
  * @example
  * ```ts
- * import { bindClass } from '@bynary/composables/class';
+ * import { bindClass } from '@homj/composables/class';
  *
  * @Component({
  *     selector: 'my-component'

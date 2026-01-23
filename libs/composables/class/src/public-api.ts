@@ -2,7 +2,7 @@
  * @packageDocumentation
  * Composables to bind classes on elements.
  *
- * @module @bynary/composables/class
+ * @module @homj/composables/class
  */
 
 export * from './class.composable';

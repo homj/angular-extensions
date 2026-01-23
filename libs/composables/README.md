@@ -1,17 +1,18 @@
-# @bynary/composables
-[![npm](https://img.shields.io/npm/v/%40bynary%2Fcomposables)](https://www.npmjs.com/package/@bynary/composables)
+# @homj/composables
+
+[![npm](https://img.shields.io/npm/v/%homj%2Fcomposables)](https://www.npmjs.com/package/@homj/composables)
 
 A collection of composable functions for Angular based on signals.
 
 > [!WARNING]
-> This package is still in early development and not ready for production use. The API is not stable and might change at any time. 
+> This package is still in early development and not ready for production use. The API is not stable and might change at any time.
 
 ## Installation
 
 To install this library, run
 
 ```shell
-$ npm install @bynary/composables --save
+$ npm install @homj/composables --save
 ```
 
 ## Usage
@@ -30,7 +31,7 @@ import { Attribute, Component, ElementRef, HostBinding, inject, OnInit, Renderer
 @Component({
     selector: 'old-button',
     standalone: true,
-    imports: [ CommonModule ],
+    imports: [CommonModule],
     templateUrl: '<ng-content></ng-content>',
     host: {
         class: 'c-button'
@@ -74,15 +75,9 @@ export class OldButtonComponent implements OnInit {
             return;
         }
 
-        this._renderer.removeClass(
-            this._elementRef.nativeElement,
-            `c-button--${this._appearance}`
-        );
+        this._renderer.removeClass(this._elementRef.nativeElement, `c-button--${this._appearance}`);
         this._appearance = value;
-        this._renderer.addClass(
-            this._elementRef.nativeElement,
-            `c-button--${this._appearance}`
-        );
+        this._renderer.addClass(this._elementRef.nativeElement, `c-button--${this._appearance}`);
     }
 
     get color(): 'red' | 'green' | undefined {
@@ -95,19 +90,13 @@ export class OldButtonComponent implements OnInit {
         }
 
         if (this._color) {
-            this._renderer.removeClass(
-                this._elementRef.nativeElement,
-                `c-button--color-${this._color}`
-            );
+            this._renderer.removeClass(this._elementRef.nativeElement, `c-button--color-${this._color}`);
         }
 
         this._color = value;
 
         if (this._color) {
-            this._renderer.addClass(
-                this._elementRef.nativeElement,
-                `c-button--color-${this._color}`
-            );
+            this._renderer.addClass(this._elementRef.nativeElement, `c-button--color-${this._color}`);
         }
     }
 
@@ -115,7 +104,6 @@ export class OldButtonComponent implements OnInit {
         this.appearance = 'solid';
     }
 }
-
 ```
 
 ### With composables
@@ -126,14 +114,11 @@ What if you could write the same functionality in just a few lines of code?
 @Component({
     selector: 'my-button',
     standalone: true,
-    imports: [ CommonModule ],
+    imports: [CommonModule],
     template: '<ng-content></ng-content>',
-    providers: [
-        provideBaseClass('c-button')
-    ]
+    providers: [provideBaseClass('c-button')]
 })
 export class ButtonComponent {
-
     readonly type = useAttribute('type', { defaultValue: 'button' });
     readonly isDisabled = useBooleanAttribute('disabled');
     readonly isLoading = useModifier('is-loading', { initialValue: false });
@@ -141,7 +126,10 @@ export class ButtonComponent {
     readonly color = useModifierGroup(undefined, { prefix: 'color' });
 
     constructor() {
-        bindAttribute('tabindex', computed(() => this.isDisabled() ? '-1' : '0'));
+        bindAttribute(
+            'tabindex',
+            computed(() => (this.isDisabled() ? '-1' : '0'))
+        );
     }
 }
 ```
@@ -150,7 +138,7 @@ export class ButtonComponent {
 <summary>Future use with <code>input()</code> in signal based components</summary>
 
 Next to the `useXyz`-function, each composable is also available as a `binXyz`-function, which takes a signal as an input and allows to combine multiple use cases in one statement.
-E.g. with the upcoming signal-based `input()` function ([read more about this](https://github.com/angular/angular/discussions/49682)) 
+E.g. with the upcoming signal-based `input()` function ([read more about this](https://github.com/angular/angular/discussions/49682))
 
 ```ts
 import { bindAttribute } from './attribute.composable';
@@ -158,14 +146,11 @@ import { bindAttribute } from './attribute.composable';
 @Component({
     selector: 'my-button',
     standalone: true,
-    imports: [ CommonModule ],
+    imports: [CommonModule],
     template: '<ng-content></ng-content>',
-    providers: [
-        provideBaseClass('c-button')
-    ]
+    providers: [provideBaseClass('c-button')]
 })
 export class ButtonComponent {
-
     readonly disabled = input(false);
     readonly loading = input(false);
     readonly appearance = input('solid');
@@ -177,10 +162,14 @@ export class ButtonComponent {
         bindModifier('is-loading', this.loading);
         bindModifierGroup(this.appearance);
         bindModifierGroup(this.color, { prefix: 'color' });
-        bindAttribute('tabindex', computed(() => this.disabled() ? '-1' : '0'));
+        bindAttribute(
+            'tabindex',
+            computed(() => (this.disabled() ? '-1' : '0'))
+        );
     }
 }
 ```
+
 </details>
 
 ### Run the demo
@@ -188,18 +177,17 @@ export class ButtonComponent {
 Try it out yourself by running `nx serve demo` and navigating to `http://localhost:4200/`.
 Or check the code for the demo in the [demo app](../../apps/demo).
 
-
 ## Packages
 
 The composable functions are exported from subpackages, grouped by their purpose.
 
-| Package                                                          | Purpose                                                             |
-|------------------------------------------------------------------|---------------------------------------------------------------------|
-| [`@bynary/composables/attribute`](attribute/README.md) | Bind HTML attributes                                                |
-| [`@bynary/composables/class`](class/README.md)       | Bind classes on HTML elements                                       |
-| [`@bynary/composables/observer`](observer/README.md) | Observe events, media queries and similar things                    |
-| [`@bynary/composables/storage`](storage/README.md)   | Bind a signal to a storage, e.g. `localStorage` or `sessionStorage` |
-| [`@bynary/composables/title`](title/README.md)       | Read and write the HTML document's title                            |
+| Package                                              | Purpose                                                             |
+| ---------------------------------------------------- | ------------------------------------------------------------------- |
+| [`@homj/composables/attribute`](attribute/README.md) | Bind HTML attributes                                                |
+| [`@homj/composables/class`](class/README.md)         | Bind classes on HTML elements                                       |
+| [`@homj/composables/observer`](observer/README.md)   | Observe events, media queries and similar things                    |
+| [`@homj/composables/storage`](storage/README.md)     | Bind a signal to a storage, e.g. `localStorage` or `sessionStorage` |
+| [`@homj/composables/title`](title/README.md)         | Read and write the HTML document's title                            |
 
 ## Running commands
 

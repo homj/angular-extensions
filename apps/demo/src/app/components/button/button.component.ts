@@ -1,7 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
-import { bindAttribute, bindBooleanAttribute, useAttribute } from '@bynary/composables/attribute';
-import { bindModifier, bindModifierGroup, provideBaseClass } from '@bynary/composables/class';
+import { bindAttribute, bindBooleanAttribute, useAttribute } from '@homj/composables/attribute';
+import { bindModifier, bindModifierGroup, provideBaseClass } from '@homj/composables/class';
 
 export type ButtonAppearance = 'solid' | 'outline' | undefined;
 export type ButtonColor = 'red' | 'green' | undefined;
@@ -11,8 +10,7 @@ export type ButtonColor = 'red' | 'green' | undefined;
  */
 @Component({
     selector: 'demo-button',
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss'],
     encapsulation: ViewEncapsulation.None,

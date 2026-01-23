@@ -52,18 +52,66 @@
             "standalone": true,
             "changeDetection": "OnPush",
             "viewEncapsulation": "None",
-            "prefix": "bx"
+            "prefix": "bx",
+            "type": "component"
         },
         "@nx/angular:directive": {
             "standalone": true,
-            "prefix": "bx"
+            "prefix": "bx",
+            "type": "directive"
         },
         "@nx/angular:pipe": {
-            "standalone": true
+            "standalone": true,
+            "typeSeparator": "."
         },
         "@nx/angular:move": {
             "updateImportPath": true,
             "skipFormat": true
+        },
+        "@schematics/angular:component": {
+            "type": "component"
+        },
+        "@schematics/angular:directive": {
+            "type": "directive"
+        },
+        "@nx/angular:service": {
+            "type": "service"
+        },
+        "@schematics/angular:service": {
+            "type": "service"
+        },
+        "@nx/angular:scam": {
+            "type": "component"
+        },
+        "@nx/angular:scam-directive": {
+            "type": "directive"
+        },
+        "@nx/angular:guard": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:guard": {
+            "typeSeparator": "."
+        },
+        "@nx/angular:interceptor": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:interceptor": {
+            "typeSeparator": "."
+        },
+        "@nx/angular:module": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:module": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:pipe": {
+            "typeSeparator": "."
+        },
+        "@nx/angular:resolver": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:resolver": {
+            "typeSeparator": "."
         }
     },
     "useInferencePlugins": false

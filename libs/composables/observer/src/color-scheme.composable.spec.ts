@@ -17,7 +17,8 @@ describe('color-scheme.composable.ts', () => {
 
     describe('usePreferredColorScheme', () => {
         @Component({
-            template: ''
+            template: '',
+            standalone: true
         })
         class TestComponent {
             preferredColorScheme = usePreferredColorScheme();
@@ -28,7 +29,7 @@ describe('color-scheme.composable.ts', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                declarations: [TestComponent]
+                imports: [TestComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestComponent);

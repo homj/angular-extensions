@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
-import { bindAttribute } from '@bynary/composables/attribute';
-import { ColorScheme, useColorScheme } from '@bynary/composables/observer';
-import { useStorage } from '@bynary/composables/storage';
+import { bindAttribute } from '@homj/composables/attribute';
+import { ColorScheme, useColorScheme } from '@homj/composables/observer';
+import { useStorage } from '@homj/composables/storage';
 
 @Component({
     selector: 'demo-color-scheme-switch',

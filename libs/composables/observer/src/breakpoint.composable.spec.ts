@@ -6,7 +6,8 @@ import { BehaviorSubject, map } from 'rxjs';
 import { useBreakpoint } from './breakpoint.composable';
 
 @Component({
-    template: ''
+    template: '',
+    standalone: true
 })
 class TestComponent {
     readonly isMobile = useBreakpoint('(max-width: 600px)');
@@ -21,21 +22,13 @@ describe('useBreakpoint', () => {
         isMatchedSubject = new BehaviorSubject(true);
 
         await TestBed.configureTestingModule({
-            declarations: [ TestComponent ],
+            imports: [TestComponent],
             providers: [
                 {
                     provide: BreakpointObserver,
                     useValue: {
-                        isMatched: jest
-                            .fn()
-                            .mockImplementation(() => isMatchedSubject.value),
-                        observe: jest
-                            .fn()
-                            .mockReturnValue(
-                                isMatchedSubject.pipe(
-                                    map((matches) => ({ matches }))
-                                )
-                            )
+                        isMatched: jest.fn().mockImplementation(() => isMatchedSubject.value),
+                        observe: jest.fn().mockReturnValue(isMatchedSubject.pipe(map((matches) => ({ matches }))))
                     }
                 }
             ]

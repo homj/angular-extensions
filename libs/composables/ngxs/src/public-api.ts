@@ -23,7 +23,7 @@
  * }
  * ```
  *
- * @module @bynary/composables/ngxs
+ * @module @homj/composables/ngxs
  */
 
 export * from './select.composable';
