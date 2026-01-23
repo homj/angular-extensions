@@ -1,7 +1,7 @@
 {
     "name": "@homj/composables",
     "description": "A set of composable functions to help you build Angular applications faster. Based on signals",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "license": "MIT",
     "author": "Johannes Homeier",
     "contributors": [
