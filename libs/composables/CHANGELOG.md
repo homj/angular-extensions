@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/homj/angular-extensions/compare/composables-v0.2.3...composables-v0.3.0) (2026-01-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* update angular 21 ([#2](https://github.com/homj/angular-extensions/issues/2))
+
+### Features
+
+* update angular 21 ([#2](https://github.com/homj/angular-extensions/issues/2)) ([839245a](https://github.com/homj/angular-extensions/commit/839245a1c06a2a772ddb907b0a01e1f0f7a6285d))
+
 ## [0.2.3](https://github.com/bynaryDE/angular-extensions/compare/composables-v0.2.2...composables-v0.2.3) (2024-07-11)
 
 ### Features
