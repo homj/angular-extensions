@@ -17,8 +17,14 @@
         "paths": {
             "@homj/composables/attribute": ["libs/composables/attribute/src/index.ts"],
             "@homj/composables/class": ["libs/composables/class/src/index.ts"],
+            "@homj/composables/form": ["libs/composables/form/src/index.ts"],
+            "@homj/composables/intersection": ["libs/composables/intersection/src/index.ts"],
+            "@homj/composables/network": ["libs/composables/network/src/index.ts"],
             "@homj/composables/ngxs": ["libs/composables/ngxs/src/index.ts"],
             "@homj/composables/observer": ["libs/composables/observer/src/index.ts"],
+            "@homj/composables/resize": ["libs/composables/resize/src/index.ts"],
+            "@homj/composables/router": ["libs/composables/router/src/index.ts"],
+            "@homj/composables/signal-utils": ["libs/composables/signal-utils/src/index.ts"],
             "@homj/composables/storage": ["libs/composables/storage/src/index.ts"],
             "@homj/composables/title": ["libs/composables/title/src/index.ts"]
         }
