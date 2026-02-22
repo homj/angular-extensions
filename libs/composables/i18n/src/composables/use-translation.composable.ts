@@ -1,7 +1,9 @@
-import { inject } from '@angular/core';
-import { TranslateFn } from '../models/translation.types';
+import { computed, inject, isSignal } from '@angular/core';
+import { MaybeSignal } from '../models/maybe-signal';
+import { ScopedTranslateFn, TranslateFn, TranslationParams } from '../models/translation.types';
 import { TRANSLATION_SCOPE, TranslationScopeConfig } from '../tokens/translation.tokens';
 import { TranslationStore } from '../service/translation.store';
+import { resolveSignalValue } from '../utils/resolve-signal-value';
 
 /**
  * Returns a reactive translate function `t` that resolves translation keys to strings.
@@ -55,11 +57,26 @@ import { TranslationStore } from '../service/translation.store';
  *
  * @returns A reactive {@link TranslateFn}
  */
-export function useTranslation(): TranslateFn {
+export function useTranslation(): TranslateFn;
+export function useTranslation(scope: MaybeSignal<string>): ScopedTranslateFn;
+export function useTranslation(scope?: MaybeSignal<string>): TranslateFn | ScopedTranslateFn {
     const store = inject(TranslationStore);
     const scopes = inject(TRANSLATION_SCOPE, { optional: true }) as TranslationScopeConfig[] | null;
 
     scopes?.forEach(({ scope, loader }) => store.ensureScope(scope, loader));
 
-    return (key: string, params?) => store.translate(key, params);
+    const globalTranslateFn: TranslateFn = (key, params) => store.translate(key, params);
+
+    if (scope) {
+        const scopedTranslateFn: ScopedTranslateFn = (key, params) =>
+            store.translate(
+                computed(() => `${resolveSignalValue(scope)}:${resolveSignalValue(key)}`),
+                params
+            );
+
+        scopedTranslateFn.global = globalTranslateFn;
+        return scopedTranslateFn;
+    }
+
+    return globalTranslateFn;
 }

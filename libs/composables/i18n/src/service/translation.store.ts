@@ -1,9 +1,44 @@
+import {
+    computed,
+    inject,
+    Injectable,
+    Injector,
+    isSignal,
+    resource,
+    runInInjectionContext,
+    signal,
+    Signal
+} from '@angular/core';
+import { Language } from '../models/language';
+import { TranslationLoader, TranslationParams, TranslationResource } from '../models/translation.types';
+import { DEFAULT_LANGUAGE } from '../tokens/defualt-language.tokens';
+import { TRANSLATION_LOADER } from '../tokens/translation.tokens';
 import { inject, Injectable, Injector, resource, ResourceRef, runInInjectionContext, Signal, WritableSignal } from '@angular/core';
 import { TranslationData, TranslationLoader, TranslationParams } from '../models/translation.types';
 import { CURRENT_LANGUAGE, TRANSLATION_LOADER } from '../tokens/translation.tokens';
 
 /** Sentinel key used internally for the global (unscoped) translation namespace. */
-const GLOBAL_SCOPE = '';
+const GLOBAL_SCOPE = Symbol('global');
+type Scope = string | symbol;
+
+const isResource = (value: unknown): value is TranslationResource => value != null && 'value' in (value as object);
+
+const getScopeAndPath = (key: string) => {
+    const colonIdx = key.indexOf(':');
+
+    let scope: Scope;
+    let path: string;
+
+    if (colonIdx === -1) {
+        scope = GLOBAL_SCOPE;
+        path = key;
+    } else {
+        scope = key.slice(0, colonIdx);
+        path = key.slice(colonIdx + 1);
+    }
+
+    return { scope, path };
+};
 
 /**
  * @internal
@@ -25,8 +60,8 @@ const interpolate = (value: string, params: TranslationParams): string =>
 @Injectable()
 export class TranslationStore {
     private readonly injector = inject(Injector);
-    private readonly lang: WritableSignal<string> = inject(CURRENT_LANGUAGE);
-    private readonly resources = new Map<string, ResourceRef<TranslationData>>();
+    private readonly resources = new Map<Scope, TranslationResource>();
+    readonly language = signal<Language>(inject(DEFAULT_LANGUAGE));
 
     constructor() {
         const globalLoader = inject(TRANSLATION_LOADER, { optional: true });
@@ -43,17 +78,21 @@ export class TranslationStore {
      * @param scope - The scope identifier, or `''` for the global namespace
      * @param loader - The loader function for this scope
      */
-    ensureScope(scope: string, loader: TranslationLoader): void {
+    ensureScope(scope: Scope, loader: TranslationLoader | TranslationResource): void {
         if (this.resources.has(scope)) {
             return;
         }
 
-        const ref = runInInjectionContext(this.injector, () =>
-            resource<TranslationData, string>({
-                request: () => this.lang(),
-                loader: ({ request: lang }) => loader(lang)
-            })
-        );
+        const ref = isResource(loader)
+            ? loader
+            : runInInjectionContext(
+                  this.injector,
+                  () =>
+                      resource({
+                          params: () => ({ language: this.language() }),
+                          loader: ({ params }) => loader(params.language)
+                      }) as TranslationResource
+              );
 
         this.resources.set(scope, ref);
     }
@@ -64,7 +103,7 @@ export class TranslationStore {
      *
      * @param scope - The scope identifier, or `''` for the global namespace
      */
-    isLoading(scope = GLOBAL_SCOPE): Signal<boolean> | undefined {
+    isLoading(scope: Scope = GLOBAL_SCOPE): Signal<boolean> | undefined {
         return this.resources.get(scope)?.isLoading;
     }
 
@@ -79,23 +118,31 @@ export class TranslationStore {
      * @param params - Optional interpolation parameters
      * @returns The translated string, or the key itself as a fallback while loading
      */
-    translate(key: string, params?: TranslationParams): string {
-        const colonIdx = key.indexOf(':');
+    translate(
+        key: string | Signal<string>,
+        params?: TranslationParams | Signal<TranslationParams | undefined>
+    ): Signal<string> {
+        return computed(() => {
+            const resolvedKey = isSignal(key) ? key() : key;
+            const resolvedParams = isSignal(params) ? params() : params;
+            const { scope, path } = getScopeAndPath(resolvedKey);
 
-        let scope: string;
-        let actualKey: string;
+            const resource = this.resources.get(scope);
 
-        if (colonIdx === -1) {
-            scope = GLOBAL_SCOPE;
-            actualKey = key;
-        } else {
-            scope = key.slice(0, colonIdx);
-            actualKey = key.slice(colonIdx + 1);
-        }
+            if (!resource) {
+                throw new Error(
+                    `Resource not defined for ${scope === GLOBAL_SCOPE ? 'global scope' : `scope '${scope as string}'`}`
+                );
+            }
 
-        const data = this.resources.get(scope)?.value();
-        const value = data?.[actualKey] ?? key;
+            if (!resource.hasValue()) {
+                return resolvedKey; // TODO: Loading / Error handler
+            }
 
-        return params ? interpolate(value, params) : value;
+            const data = resource.value();
+            const value = data?.[path] ?? resolvedKey; // TODO: Missing translation handler
+
+            return resolvedParams ? interpolate(value, resolvedParams) : value;
+        });
     }
 }

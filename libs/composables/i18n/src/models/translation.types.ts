@@ -1,3 +1,7 @@
+import { Resource, Signal } from '@angular/core';
+import { Language } from './language';
+import { MaybeSignal } from './maybe-signal';
+
 /**
  * A flat map of translation keys to their translated string values.
  */
@@ -8,7 +12,9 @@ export type TranslationData = Record<string, string>;
  * Receives the active language tag (e.g. `'en'`, `'de'`) and returns translation data.
  * Intended to be used with dynamic imports, e.g. `(lang) => import('./i18n/${lang}.json').then(m => m.default)`.
  */
-export type TranslationLoader = (lang: string) => Promise<TranslationData>;
+export type TranslationLoader = (language: Language) => Promise<TranslationData>;
+
+export type TranslationResource = Resource<TranslationData>;
 
 /**
  * Parameters used for interpolating values into a translated string.
@@ -30,4 +36,5 @@ export type TranslationParams = Record<string, string | number>;
  * @param params - Optional interpolation parameters (replaces `{{ paramName }}` placeholders)
  * @returns The translated string, or the key itself as a fallback while loading
  */
-export type TranslateFn = (key: string, params?: TranslationParams) => string;
+export type TranslateFn = (key: MaybeSignal<string>, params?: MaybeSignal<TranslationParams>) => Signal<string>;
+export type ScopedTranslateFn = TranslateFn & { global: TranslateFn };
