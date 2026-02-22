@@ -4,10 +4,11 @@
 export type TranslationData = Record<string, string>;
 
 /**
- * A function that asynchronously loads translation data for a scope or the global namespace.
- * Intended to be used with dynamic imports, e.g. `() => import('./i18n/en.json')`.
+ * A function that asynchronously loads translation data for a given language.
+ * Receives the active language tag (e.g. `'en'`, `'de'`) and returns translation data.
+ * Intended to be used with dynamic imports, e.g. `(lang) => import('./i18n/${lang}.json').then(m => m.default)`.
  */
-export type TranslationLoader = () => Promise<TranslationData>;
+export type TranslationLoader = (lang: string) => Promise<TranslationData>;
 
 /**
  * Parameters used for interpolating values into a translated string.

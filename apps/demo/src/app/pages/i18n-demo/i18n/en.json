@@ -1,0 +1,14 @@
+{
+    "title": "Translation Demo",
+    "subtitle": "Signal-based translations powered by Angular's resource API",
+    "global-section": "Global scope",
+    "global-hint": "Keys looked up in the global namespace registered via provideTranslation()",
+    "custom-section": "Custom scope",
+    "custom-hint": "The component below registers its own scope via provideTranslationScope()",
+    "lazy-section": "Lazy-loaded scope",
+    "lazy-hint": "Click the button to defer-load the component and its translation scope",
+    "lazy-trigger": "Load component",
+    "error-section": "Fallback / error cases",
+    "error-missing-key-label": "Missing key in global scope",
+    "error-missing-scope-label": "Unknown scope"
+}

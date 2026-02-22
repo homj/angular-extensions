@@ -1,6 +1,6 @@
-import { EnvironmentProviders, makeEnvironmentProviders, Provider } from '@angular/core';
+import { EnvironmentProviders, makeEnvironmentProviders, Provider, signal } from '@angular/core';
 import { TranslationLoader } from '../models/translation.types';
-import { TRANSLATION_LOADER, TRANSLATION_SCOPE } from '../tokens/translation.tokens';
+import { CURRENT_LANGUAGE, TRANSLATION_LOADER, TRANSLATION_SCOPE } from '../tokens/translation.tokens';
 import { TranslationStore } from '../service/translation.store';
 
 /**
@@ -16,7 +16,10 @@ import { TranslationStore } from '../service/translation.store';
  * // app.config.ts
  * export const appConfig: ApplicationConfig = {
  *     providers: [
- *         provideTranslation(() => import('./i18n/en.json'))
+ *         provideTranslation(
+ *             (lang) => import(`./i18n/${lang}.json`).then(m => m.default),
+ *             'en'
+ *         )
  *     ]
  * };
  * ```
@@ -28,11 +31,13 @@ import { TranslationStore } from '../service/translation.store';
  * ```
  *
  * @param loader - Optional loader for the global (unscoped) translations
+ * @param defaultLang - The initial active language tag (defaults to `'en'`)
  * @returns Environment providers for the translation system
  */
-export function provideTranslation(loader?: TranslationLoader): EnvironmentProviders {
+export function provideTranslation(loader?: TranslationLoader, defaultLang = 'en'): EnvironmentProviders {
     return makeEnvironmentProviders([
         TranslationStore,
+        { provide: CURRENT_LANGUAGE, useValue: signal(defaultLang) },
         ...(loader ? [{ provide: TRANSLATION_LOADER, useValue: loader }] : [])
     ]);
 }
@@ -51,7 +56,7 @@ export function provideTranslation(loader?: TranslationLoader): EnvironmentProvi
  * @Component({
  *     selector: 'my-component',
  *     providers: [
- *         provideTranslationScope('my-component', () => import('./i18n/en.json'))
+ *         provideTranslationScope('my-component', (lang) => import(`./i18n/${lang}.json`).then(m => m.default))
  *     ],
  *     template: `
  *         <h1>{{ t('title') }}</h1>

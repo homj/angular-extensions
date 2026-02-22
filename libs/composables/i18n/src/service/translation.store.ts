@@ -1,6 +1,6 @@
-import { inject, Injectable, Injector, resource, ResourceRef, runInInjectionContext, Signal } from '@angular/core';
+import { inject, Injectable, Injector, resource, ResourceRef, runInInjectionContext, Signal, WritableSignal } from '@angular/core';
 import { TranslationData, TranslationLoader, TranslationParams } from '../models/translation.types';
-import { TRANSLATION_LOADER } from '../tokens/translation.tokens';
+import { CURRENT_LANGUAGE, TRANSLATION_LOADER } from '../tokens/translation.tokens';
 
 /** Sentinel key used internally for the global (unscoped) translation namespace. */
 const GLOBAL_SCOPE = '';
@@ -25,6 +25,7 @@ const interpolate = (value: string, params: TranslationParams): string =>
 @Injectable()
 export class TranslationStore {
     private readonly injector = inject(Injector);
+    private readonly lang: WritableSignal<string> = inject(CURRENT_LANGUAGE);
     private readonly resources = new Map<string, ResourceRef<TranslationData>>();
 
     constructor() {
@@ -48,8 +49,9 @@ export class TranslationStore {
         }
 
         const ref = runInInjectionContext(this.injector, () =>
-            resource<TranslationData, undefined>({
-                loader: () => loader()
+            resource<TranslationData, string>({
+                request: () => this.lang(),
+                loader: ({ request: lang }) => loader(lang)
             })
         );
 

@@ -7,7 +7,7 @@
  */
 
 export { TranslationData, TranslationLoader, TranslationParams, TranslateFn } from './models/translation.types';
-export { TRANSLATION_LOADER, TRANSLATION_SCOPE, TranslationScopeConfig } from './tokens/translation.tokens';
+export { CURRENT_LANGUAGE, TRANSLATION_LOADER, TRANSLATION_SCOPE, TranslationScopeConfig } from './tokens/translation.tokens';
 export { TranslationStore } from './service/translation.store';
 export { provideTranslation, provideTranslationScope } from './providers/translation.providers';
 export { useTranslation } from './composables/use-translation.composable';

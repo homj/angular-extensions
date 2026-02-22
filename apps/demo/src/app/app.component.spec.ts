@@ -17,22 +17,6 @@ describe('AppComponent', () => {
         fixture.detectChanges();
     });
 
-    describe('counter', () => {
-        it('should initially be 0', () => {
-            expect(fixture.componentInstance.counter()).toBe(0);
-        });
-
-        it('should be incremented by 1 after calling incrementCounter', () => {
-            fixture.componentInstance.incrementCounter();
-
-            expect(fixture.componentInstance.counter()).toBe(1);
-
-            fixture.componentInstance.incrementCounter();
-
-            expect(fixture.componentInstance.counter()).toBe(2);
-        });
-    });
-
     describe('title', () => {
         it(`should have the correct title`, () => {
             expect(fixture.componentInstance.title()).toEqual('@homj/composables');
@@ -46,12 +30,6 @@ describe('AppComponent', () => {
 
         it('should bind the title to the document', () => {
             expect(document.title).toContain('@homj/composables');
-        });
-
-        it('should include the click counter after the first click', () => {
-            fixture.componentInstance.incrementCounter();
-
-            expect(fixture.componentInstance.title()).toEqual('@homj/composables - Clicks: 1');
         });
     });
 

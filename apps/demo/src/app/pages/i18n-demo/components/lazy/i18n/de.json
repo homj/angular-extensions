@@ -1,0 +1,5 @@
+{
+    "title": "Lazy-Komponente geladen!",
+    "message": "Diese Komponente und ihr Übersetzungsbereich wurden bei Bedarf abgerufen — erst als der Nutzer es ausgelöst hat.",
+    "current-lang": "Aktuelle Sprache: {{ lang }}"
+}

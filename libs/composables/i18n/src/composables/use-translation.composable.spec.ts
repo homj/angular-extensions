@@ -62,7 +62,7 @@ describe('useTranslation', () => {
 
     it('should register scope loaders from TRANSLATION_SCOPE token', () => {
         const ensureScopeSpy = jest.fn();
-        const loader = jest.fn().mockResolvedValue(SCOPE_DATA);
+        const loader = jest.fn((_lang: string) => Promise.resolve(SCOPE_DATA));
 
         TestBed.configureTestingModule({
             providers: [
@@ -80,8 +80,8 @@ describe('useTranslation', () => {
 
     it('should register multiple scope loaders', () => {
         const ensureScopeSpy = jest.fn();
-        const loaderA = jest.fn().mockResolvedValue({});
-        const loaderB = jest.fn().mockResolvedValue({});
+        const loaderA = jest.fn((_lang: string) => Promise.resolve({}));
+        const loaderB = jest.fn((_lang: string) => Promise.resolve({}));
 
         TestBed.configureTestingModule({
             providers: [
@@ -155,7 +155,7 @@ describe('useTranslation', () => {
         @Component({
             template: `<p id="desc">{{ t('my-scope:description') }}</p>`,
             standalone: true,
-            providers: [provideTranslationScope('my-scope', () => Promise.resolve(SCOPE_DATA))]
+            providers: [provideTranslationScope('my-scope', (_lang: string) => Promise.resolve(SCOPE_DATA))]
         })
         class ScopedComponent {
             t = useTranslation();

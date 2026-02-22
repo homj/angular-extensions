@@ -1,4 +1,4 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, WritableSignal } from '@angular/core';
 import { TranslationLoader } from '../models/translation.types';
 
 /**
@@ -7,6 +7,15 @@ import { TranslationLoader } from '../models/translation.types';
  */
 export const TRANSLATION_LOADER = new InjectionToken<TranslationLoader>(
     '@homj/composables/i18n: global loader'
+);
+
+/**
+ * Injection token for the active language signal.
+ * Holds a {@link WritableSignal} so any component can switch the language reactively.
+ * Provided by {@link provideTranslation}.
+ */
+export const CURRENT_LANGUAGE = new InjectionToken<WritableSignal<string>>(
+    '@homj/composables/i18n: current language'
 );
 
 /**

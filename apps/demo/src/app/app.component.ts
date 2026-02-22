@@ -1,29 +1,17 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { bindTitle } from '@homj/composables/title';
+import { signal } from '@angular/core';
 
-import { ButtonAppearance, ButtonColor, ButtonComponent } from './components/button/button.component';
 import { ColorSchemeSwitchComponent } from './components/color-scheme-switch/color-scheme-switch.component';
-import { OldButtonComponent } from './components/old-button/old-button.component';
 
 @Component({
-    imports: [RouterModule, ButtonComponent, ColorSchemeSwitchComponent, OldButtonComponent],
+    imports: [RouterModule, ColorSchemeSwitchComponent],
     selector: 'demo-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-    readonly counter = signal(0);
-    readonly title = bindTitle(
-        computed(() => (this.counter() ? `@homj/composables - Clicks: ${this.counter()}` : '@homj/composables'))
-    );
-
-    readonly disabled = signal(false);
-    readonly loading = signal(false);
-    readonly appearance = signal<ButtonAppearance>('solid');
-    readonly color = signal<ButtonColor>(undefined);
-
-    incrementCounter() {
-        this.counter.update((value) => value + 1);
-    }
+    readonly title = bindTitle(signal('@homj/composables'));
 }

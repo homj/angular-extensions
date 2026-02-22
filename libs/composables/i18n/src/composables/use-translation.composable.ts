@@ -44,7 +44,7 @@ import { TranslationStore } from '../service/translation.store';
  * @Component({
  *     selector: 'my-component',
  *     providers: [
- *         provideTranslationScope('my-component', () => import('./i18n/en.json'))
+ *         provideTranslationScope('my-component', (lang) => import(`./i18n/${lang}.json`).then(m => m.default))
  *     ],
  *     template: `<p>{{ t('my-component:description') }}</p>`
  * })

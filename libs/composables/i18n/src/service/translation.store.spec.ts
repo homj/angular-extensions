@@ -1,18 +1,21 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { TranslationStore } from './translation.store';
-import { TRANSLATION_LOADER } from '../tokens/translation.tokens';
+import { CURRENT_LANGUAGE, TRANSLATION_LOADER } from '../tokens/translation.tokens';
 import { TranslationData } from '../models/translation.types';
 
 const GLOBAL_DATA: TranslationData = { title: 'Hello World', greeting: 'Hello, {{ name }}!' };
 const SCOPE_DATA: TranslationData = { description: 'A description', label: 'Label' };
 
-const resolvedLoader = (data: TranslationData) => () => Promise.resolve(data);
+const resolvedLoader = (data: TranslationData) => (_lang: string) => Promise.resolve(data);
+
+const withLang = (lang = 'en') => ({ provide: CURRENT_LANGUAGE, useValue: signal(lang) });
 
 describe('TranslationStore', () => {
     describe('without a global loader', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [TranslationStore]
+                providers: [TranslationStore, withLang()]
             });
         });
 
@@ -40,6 +43,7 @@ describe('TranslationStore', () => {
             TestBed.configureTestingModule({
                 providers: [
                     TranslationStore,
+                    withLang(),
                     { provide: TRANSLATION_LOADER, useValue: resolvedLoader(GLOBAL_DATA) }
                 ]
             });
@@ -85,7 +89,7 @@ describe('TranslationStore', () => {
     describe('ensureScope', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [TranslationStore]
+                providers: [TranslationStore, withLang()]
             });
         });
 
@@ -100,12 +104,15 @@ describe('TranslationStore', () => {
             expect(store.translate('my-scope:description')).toEqual('A description');
         });
 
-        it('should not create a second resource when called again with the same scope', () => {
+        it('should not create a second resource when called again with the same scope', async () => {
             const store = TestBed.inject(TranslationStore);
             const loader = jest.fn().mockResolvedValue(SCOPE_DATA);
 
             store.ensureScope('my-scope', loader);
             store.ensureScope('my-scope', loader);
+
+            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            TestBed.flushEffects();
 
             expect(loader).toHaveBeenCalledTimes(1);
         });
@@ -122,7 +129,7 @@ describe('TranslationStore', () => {
     describe('translate — key parsing', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [TranslationStore]
+                providers: [TranslationStore, withLang()]
             });
         });
 
@@ -155,6 +162,7 @@ describe('TranslationStore', () => {
             TestBed.configureTestingModule({
                 providers: [
                     TranslationStore,
+                    withLang(),
                     { provide: TRANSLATION_LOADER, useValue: resolvedLoader(GLOBAL_DATA) }
                 ]
             });
@@ -188,6 +196,35 @@ describe('TranslationStore', () => {
             TestBed.flushEffects();
 
             expect(store.translate('count', { n: 42 })).toEqual('Total: 42');
+        });
+    });
+
+    describe('language switching', () => {
+        it('should reload translations when the language changes', async () => {
+            const lang = signal('en');
+            const enData: TranslationData = { hello: 'Hello' };
+            const deData: TranslationData = { hello: 'Hallo' };
+            const loader = jest.fn((l: string) => Promise.resolve(l === 'de' ? deData : enData));
+
+            TestBed.configureTestingModule({
+                providers: [
+                    TranslationStore,
+                    { provide: CURRENT_LANGUAGE, useValue: lang },
+                    { provide: TRANSLATION_LOADER, useValue: loader }
+                ]
+            });
+
+            const store = TestBed.inject(TranslationStore);
+
+            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            TestBed.flushEffects();
+            expect(store.translate('hello')).toEqual('Hello');
+
+            lang.set('de');
+
+            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            TestBed.flushEffects();
+            expect(store.translate('hello')).toEqual('Hallo');
         });
     });
 });

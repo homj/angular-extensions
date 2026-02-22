@@ -1,0 +1,82 @@
+<div class="page-header">
+    <div class="page-header__titles">
+        <h2>{{ t('i18n-demo:title') }}</h2>
+        <p>{{ t('i18n-demo:subtitle') }}</p>
+    </div>
+
+    <div class="lang-switcher">
+        <span class="lang-switcher__label">{{ t('language') }}</span>
+        @for (l of languages; track l.code) {
+            <button
+                class="lang-btn"
+                [class.lang-btn--active]="lang() === l.code"
+                (click)="lang.set(l.code)"
+            >
+                {{ l.label }}
+            </button>
+        }
+    </div>
+</div>
+
+<div class="sections">
+    <!-- ── Global scope ──────────────────────────────────── -->
+    <section class="card">
+        <header>
+            <h3>{{ t('i18n-demo:global-section') }}</h3>
+            <p class="hint">{{ t('i18n-demo:global-hint') }}</p>
+        </header>
+
+        <dl>
+            <dt><code>t('hello', &#123; name: 'World' &#125;)</code></dt>
+            <dd>{{ t('hello', { name: 'World' }) }}</dd>
+
+            <dt><code>t('welcome')</code></dt>
+            <dd>{{ t('welcome') }}</dd>
+        </dl>
+    </section>
+
+    <!-- ── Custom scope ──────────────────────────────────── -->
+    <section class="card">
+        <header>
+            <h3>{{ t('i18n-demo:custom-section') }}</h3>
+            <p class="hint">{{ t('i18n-demo:custom-hint') }}</p>
+        </header>
+
+        <demo-scoped-demo />
+    </section>
+
+    <!-- ── Lazy-loaded scope ─────────────────────────────── -->
+    <section class="card">
+        <header>
+            <h3>{{ t('i18n-demo:lazy-section') }}</h3>
+            <p class="hint">{{ t('i18n-demo:lazy-hint') }}</p>
+        </header>
+
+        @defer (on interaction) {
+            <demo-lazy-demo />
+        } @placeholder {
+            <button class="load-btn">{{ t('i18n-demo:lazy-trigger') }}</button>
+        }
+    </section>
+
+    <!-- ── Error / fallback cases ────────────────────────── -->
+    <section class="card card--error">
+        <header>
+            <h3>{{ t('i18n-demo:error-section') }}</h3>
+        </header>
+
+        <dl>
+            <dt>
+                <span class="label">{{ t('i18n-demo:error-missing-key-label') }}</span>
+                <code>t('nonexistent-key')</code>
+            </dt>
+            <dd class="fallback">{{ t('nonexistent-key') }}</dd>
+
+            <dt>
+                <span class="label">{{ t('i18n-demo:error-missing-scope-label') }}</span>
+                <code>t('unknown-scope:foo')</code>
+            </dt>
+            <dd class="fallback">{{ t('unknown-scope:foo') }}</dd>
+        </dl>
+    </section>
+</div>

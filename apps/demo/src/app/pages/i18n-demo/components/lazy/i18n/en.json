@@ -1,0 +1,5 @@
+{
+    "title": "Lazy Component Loaded!",
+    "message": "This component and its translation scope were fetched on demand — only when the user triggered it.",
+    "current-lang": "Active language: {{ lang }}"
+}
