@@ -1,21 +1,19 @@
-import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { TranslationStore } from './translation.store';
-import { CURRENT_LANGUAGE, TRANSLATION_LOADER } from '../tokens/translation.tokens';
+import { provideTranslation } from '../index';
 import { TranslationData } from '../models/translation.types';
+import { TRANSLATION_LOADER } from '../tokens/translation.tokens';
+import { TranslationStore } from './translation.store';
 
 const GLOBAL_DATA: TranslationData = { title: 'Hello World', greeting: 'Hello, {{ name }}!' };
 const SCOPE_DATA: TranslationData = { description: 'A description', label: 'Label' };
 
 const resolvedLoader = (data: TranslationData) => (_lang: string) => Promise.resolve(data);
 
-const withLang = (lang = 'en') => ({ provide: CURRENT_LANGUAGE, useValue: signal(lang) });
-
 describe('TranslationStore', () => {
     describe('without a global loader', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [TranslationStore, withLang()]
+                providers: [provideTranslation()]
             });
         });
 
@@ -41,11 +39,7 @@ describe('TranslationStore', () => {
     describe('with a global loader', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [
-                    TranslationStore,
-                    withLang(),
-                    { provide: TRANSLATION_LOADER, useValue: resolvedLoader(GLOBAL_DATA) }
-                ]
+                providers: [TranslationStore, { provide: TRANSLATION_LOADER, useValue: resolvedLoader(GLOBAL_DATA) }]
             });
         });
 
@@ -61,7 +55,7 @@ describe('TranslationStore', () => {
             await TestBed.inject(TestBed as any, { optional: true });
 
             // Flush microtasks so the resource promise resolves
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(store.translate('title')).toEqual('Hello World');
@@ -70,7 +64,7 @@ describe('TranslationStore', () => {
         it('should return key fallback for a missing translation key', async () => {
             const store = TestBed.inject(TranslationStore);
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(store.translate('missing')).toEqual('missing');
@@ -79,7 +73,7 @@ describe('TranslationStore', () => {
         it('should interpolate params after translations are loaded', async () => {
             const store = TestBed.inject(TranslationStore);
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(store.translate('greeting', { name: 'Jane' })).toEqual('Hello, Jane!');
@@ -89,7 +83,7 @@ describe('TranslationStore', () => {
     describe('ensureScope', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [TranslationStore, withLang()]
+                providers: [provideTranslation()]
             });
         });
 
@@ -98,7 +92,7 @@ describe('TranslationStore', () => {
 
             store.ensureScope('my-scope', resolvedLoader(SCOPE_DATA));
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(store.translate('my-scope:description')).toEqual('A description');
@@ -111,7 +105,7 @@ describe('TranslationStore', () => {
             store.ensureScope('my-scope', loader);
             store.ensureScope('my-scope', loader);
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(loader).toHaveBeenCalledTimes(1);
@@ -129,7 +123,7 @@ describe('TranslationStore', () => {
     describe('translate — key parsing', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
-                providers: [TranslationStore, withLang()]
+                providers: [provideTranslation()]
             });
         });
 
@@ -138,7 +132,7 @@ describe('TranslationStore', () => {
 
             store.ensureScope('', resolvedLoader(GLOBAL_DATA));
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(store.translate('title')).toEqual('Hello World');
@@ -150,7 +144,7 @@ describe('TranslationStore', () => {
 
             store.ensureScope('scope', resolvedLoader(data));
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(store.translate('scope:foo:bar')).toEqual('scope:foo:bar');
@@ -161,8 +155,7 @@ describe('TranslationStore', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 providers: [
-                    TranslationStore,
-                    withLang(),
+                    provideTranslation(),
                     { provide: TRANSLATION_LOADER, useValue: resolvedLoader(GLOBAL_DATA) }
                 ]
             });
@@ -171,7 +164,7 @@ describe('TranslationStore', () => {
         it('should replace {{ param }} placeholders', async () => {
             const store = TestBed.inject(TranslationStore);
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(store.translate('greeting', { name: 'Alice' })).toEqual('Hello, Alice!');
@@ -180,7 +173,7 @@ describe('TranslationStore', () => {
         it('should keep placeholder text for missing params', async () => {
             const store = TestBed.inject(TranslationStore);
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(store.translate('greeting', {})).toEqual('Hello, name!');
@@ -192,7 +185,7 @@ describe('TranslationStore', () => {
 
             store.ensureScope('', resolvedLoader(data));
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
 
             expect(store.translate('count', { n: 42 })).toEqual('Total: 42');
@@ -201,28 +194,23 @@ describe('TranslationStore', () => {
 
     describe('language switching', () => {
         it('should reload translations when the language changes', async () => {
-            const lang = signal('en');
             const enData: TranslationData = { hello: 'Hello' };
             const deData: TranslationData = { hello: 'Hallo' };
             const loader = jest.fn((l: string) => Promise.resolve(l === 'de' ? deData : enData));
 
             TestBed.configureTestingModule({
-                providers: [
-                    TranslationStore,
-                    { provide: CURRENT_LANGUAGE, useValue: lang },
-                    { provide: TRANSLATION_LOADER, useValue: loader }
-                ]
+                providers: [provideTranslation(), { provide: TRANSLATION_LOADER, useValue: loader }]
             });
 
             const store = TestBed.inject(TranslationStore);
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
             expect(store.translate('hello')).toEqual('Hello');
 
-            lang.set('de');
+            store.language.set('de');
 
-            await new Promise<void>(resolve => setTimeout(resolve, 0));
+            await new Promise<void>((resolve) => setTimeout(resolve, 0));
             TestBed.flushEffects();
             expect(store.translate('hello')).toEqual('Hallo');
         });

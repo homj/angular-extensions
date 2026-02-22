@@ -13,9 +13,6 @@ import { Language } from '../models/language';
 import { TranslationLoader, TranslationParams, TranslationResource } from '../models/translation.types';
 import { DEFAULT_LANGUAGE } from '../tokens/defualt-language.tokens';
 import { TRANSLATION_LOADER } from '../tokens/translation.tokens';
-import { inject, Injectable, Injector, resource, ResourceRef, runInInjectionContext, Signal, WritableSignal } from '@angular/core';
-import { TranslationData, TranslationLoader, TranslationParams } from '../models/translation.types';
-import { CURRENT_LANGUAGE, TRANSLATION_LOADER } from '../tokens/translation.tokens';
 
 /** Sentinel key used internally for the global (unscoped) translation namespace. */
 const GLOBAL_SCOPE = Symbol('global');

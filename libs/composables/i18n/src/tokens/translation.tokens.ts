@@ -1,22 +1,11 @@
-import { InjectionToken, WritableSignal } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { TranslationLoader } from '../models/translation.types';
 
 /**
  * Injection token for the global (unscoped) translation loader.
  * Provided by {@link provideTranslation}.
  */
-export const TRANSLATION_LOADER = new InjectionToken<TranslationLoader>(
-    '@homj/composables/i18n: global loader'
-);
-
-/**
- * Injection token for the active language signal.
- * Holds a {@link WritableSignal} so any component can switch the language reactively.
- * Provided by {@link provideTranslation}.
- */
-export const CURRENT_LANGUAGE = new InjectionToken<WritableSignal<string>>(
-    '@homj/composables/i18n: current language'
-);
+export const TRANSLATION_LOADER = new InjectionToken<TranslationLoader>('@homj/composables/i18n: global loader');
 
 /**
  * Configuration object for a single translation scope.
@@ -33,6 +22,4 @@ export interface TranslationScopeConfig {
  * Each entry is a {@link TranslationScopeConfig} object.
  * Provided by {@link provideTranslationScope}.
  */
-export const TRANSLATION_SCOPE = new InjectionToken<TranslationScopeConfig>(
-    '@homj/composables/i18n: scope config'
-);
+export const TRANSLATION_SCOPE = new InjectionToken<TranslationScopeConfig>('@homj/composables/i18n: scope config');

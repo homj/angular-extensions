@@ -65,14 +65,14 @@ export function useTranslation(scope?: MaybeSignal<string>): TranslateFn | Scope
 
     scopes?.forEach(({ scope, loader }) => store.ensureScope(scope, loader));
 
-    const globalTranslateFn: TranslateFn = (key, params) => store.translate(key, params);
+    const globalTranslateFn: TranslateFn = (key, params) => store.translate(key, params)();
 
     if (scope) {
         const scopedTranslateFn: ScopedTranslateFn = (key, params) =>
             store.translate(
                 computed(() => `${resolveSignalValue(scope)}:${resolveSignalValue(key)}`),
                 params
-            );
+            )();
 
         scopedTranslateFn.global = globalTranslateFn;
         return scopedTranslateFn;

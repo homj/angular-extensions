@@ -36,5 +36,5 @@ export type TranslationParams = Record<string, string | number>;
  * @param params - Optional interpolation parameters (replaces `{{ paramName }}` placeholders)
  * @returns The translated string, or the key itself as a fallback while loading
  */
-export type TranslateFn = (key: MaybeSignal<string>, params?: MaybeSignal<TranslationParams>) => Signal<string>;
+export type TranslateFn = (key: MaybeSignal<string>, params?: MaybeSignal<TranslationParams>) => string;
 export type ScopedTranslateFn = TranslateFn & { global: TranslateFn };

@@ -7,13 +7,9 @@
     <div class="lang-switcher">
         <span class="lang-switcher__label">{{ t('language') }}</span>
         @for (l of languages; track l.code) {
-            <button
-                class="lang-btn"
-                [class.lang-btn--active]="lang() === l.code"
-                (click)="lang.set(l.code)"
-            >
-                {{ l.label }}
-            </button>
+        <button class="lang-btn" [class.lang-btn--active]="lang() === l.code" (click)="lang.set(l.code)">
+            {{ l.label }}
+        </button>
         }
     </div>
 </div>
@@ -53,14 +49,14 @@
         </header>
 
         @defer (on interaction) {
-            <demo-lazy-demo />
+        <demo-lazy-demo />
         } @placeholder {
-            <button class="load-btn">{{ t('i18n-demo:lazy-trigger') }}</button>
+        <button class="load-btn">{{ t('i18n-demo:lazy-trigger') }}</button>
         }
     </section>
 
-    <!-- ── Error / fallback cases ────────────────────────── -->
-    <section class="card card--error">
+    ── Error / fallback cases ──────────────────────────
+    <!--<section class="card card&#45;&#45;error">
         <header>
             <h3>{{ t('i18n-demo:error-section') }}</h3>
         </header>
@@ -78,5 +74,5 @@
             </dt>
             <dd class="fallback">{{ t('unknown-scope:foo') }}</dd>
         </dl>
-    </section>
+    </section>-->
 </div>

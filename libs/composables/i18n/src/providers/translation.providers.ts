@@ -1,6 +1,8 @@
 import { EnvironmentProviders, makeEnvironmentProviders, Provider, signal } from '@angular/core';
+import { Language } from '../models/language';
 import { TranslationLoader } from '../models/translation.types';
-import { CURRENT_LANGUAGE, TRANSLATION_LOADER, TRANSLATION_SCOPE } from '../tokens/translation.tokens';
+import { DEFAULT_LANGUAGE } from '../tokens/defualt-language.tokens';
+import { TRANSLATION_LOADER, TRANSLATION_SCOPE } from '../tokens/translation.tokens';
 import { TranslationStore } from '../service/translation.store';
 
 /**
@@ -31,13 +33,13 @@ import { TranslationStore } from '../service/translation.store';
  * ```
  *
  * @param loader - Optional loader for the global (unscoped) translations
- * @param defaultLang - The initial active language tag (defaults to `'en'`)
+ * @param defaultLang - The initial active language tag
  * @returns Environment providers for the translation system
  */
-export function provideTranslation(loader?: TranslationLoader, defaultLang = 'en'): EnvironmentProviders {
+export function provideTranslation(loader?: TranslationLoader, defaultLang?: Language): EnvironmentProviders {
     return makeEnvironmentProviders([
         TranslationStore,
-        { provide: CURRENT_LANGUAGE, useValue: signal(defaultLang) },
+        { provide: DEFAULT_LANGUAGE, useValue: defaultLang },
         ...(loader ? [{ provide: TRANSLATION_LOADER, useValue: loader }] : [])
     ]);
 }

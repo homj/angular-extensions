@@ -6,8 +6,7 @@
  * @module @homj/composables/i18n
  */
 
-export { TranslationData, TranslationLoader, TranslationParams, TranslateFn } from './models/translation.types';
-export { CURRENT_LANGUAGE, TRANSLATION_LOADER, TRANSLATION_SCOPE, TranslationScopeConfig } from './tokens/translation.tokens';
-export { TranslationStore } from './service/translation.store';
-export { provideTranslation, provideTranslationScope } from './providers/translation.providers';
-export { useTranslation } from './composables/use-translation.composable';
+export * from './composables/public-api';
+export * from './models/public-api';
+export * from './providers/public-api';
+export * from './service/public-api';
