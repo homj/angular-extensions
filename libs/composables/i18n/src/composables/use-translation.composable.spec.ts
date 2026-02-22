@@ -15,7 +15,7 @@ const mockStore = (overrides: Partial<TranslationStore> = {}): TranslationStore 
         translate: jest.fn((key: string) => key),
         isLoading: jest.fn(),
         ...overrides
-    }) as unknown as TranslationStore;
+    } as unknown as TranslationStore);
 
 describe('useTranslation', () => {
     it('should return a function', () => {

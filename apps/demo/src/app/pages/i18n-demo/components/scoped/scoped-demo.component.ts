@@ -3,12 +3,7 @@ import { provideTranslationScope, useTranslation } from '@homj/composables/i18n'
 
 @Component({
     selector: 'demo-scoped-demo',
-    providers: [
-        provideTranslationScope(
-            'user-card',
-            (lang) => import(`./i18n/${lang}.json`).then((m) => m.default)
-        )
-    ],
+    providers: [provideTranslationScope('user-card', (lang) => import(`./i18n/${lang}.json`).then((m) => m.default))],
     template: `
         <dl>
             <dt>Name</dt>
