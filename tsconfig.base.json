@@ -13,6 +13,7 @@
         "lib": ["es2020", "dom"],
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
+        "resolveJsonModule": true,
         "baseUrl": ".",
         "paths": {
             "@homj/composables/attribute": ["libs/composables/attribute/src/index.ts"],
@@ -20,7 +21,8 @@
             "@homj/composables/ngxs": ["libs/composables/ngxs/src/index.ts"],
             "@homj/composables/observer": ["libs/composables/observer/src/index.ts"],
             "@homj/composables/storage": ["libs/composables/storage/src/index.ts"],
-            "@homj/composables/title": ["libs/composables/title/src/index.ts"]
+            "@homj/composables/title": ["libs/composables/title/src/index.ts"],
+            "@homj/composables/i18n": ["libs/composables/i18n/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,5 @@
+{
+    "hello": "Hello, {{ name }}!",
+    "welcome": "Welcome to the translations demo.",
+    "language": "Language"
+}

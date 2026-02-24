@@ -1,0 +1,14 @@
+{
+    "title": "Übersetzungs-Demo",
+    "subtitle": "Signalbasierte Übersetzungen mit Angulars Resource API",
+    "global-section": "Globaler Bereich",
+    "global-hint": "Schlüssel im globalen Namensraum, registriert via provideTranslation()",
+    "custom-section": "Benutzerdefinierter Bereich",
+    "custom-hint": "Die Komponente unten registriert ihren eigenen Bereich via provideTranslationScope()",
+    "lazy-section": "Lazy geladener Bereich",
+    "lazy-hint": "Klicke den Button, um die Komponente und ihren Übersetzungsbereich per Defer zu laden",
+    "lazy-trigger": "Komponente laden",
+    "error-section": "Fallback / Fehlerfälle",
+    "error-missing-key-label": "Fehlender Schlüssel im globalen Bereich",
+    "error-missing-scope-label": "Unbekannter Bereich"
+}

@@ -1,0 +1,170 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 56rem;
+    margin-inline: auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+// ── Page header ────────────────────────────────────────────
+.page-header {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+
+    &__titles {
+        h2 {
+            font-size: var(--font-size-fluid-2);
+            max-inline-size: unset;
+        }
+
+        p {
+            color: var(--text-2);
+            margin-block-start: 0.25rem;
+        }
+    }
+}
+
+// ── Language switcher ──────────────────────────────────────
+.lang-switcher {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+
+    &__label {
+        color: var(--text-2);
+        font-size: var(--font-size-0);
+    }
+}
+
+.lang-btn {
+    background: var(--surface-3);
+    border: var(--border-size-1) solid transparent;
+    border-radius: var(--radius-2);
+    color: var(--text-2);
+    cursor: pointer;
+    font-size: var(--font-size-0);
+    font-weight: var(--font-weight-6);
+    padding: 0.25rem 0.75rem;
+
+    &:hover {
+        background: var(--surface-4);
+        color: var(--text-1);
+    }
+
+    &--active {
+        background: transparent;
+        border-color: var(--brand);
+        color: var(--brand);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        transition: background-color 0.15s var(--ease-1), color 0.15s var(--ease-1);
+    }
+}
+
+// ── Section grid ───────────────────────────────────────────
+.sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+// ── Card ───────────────────────────────────────────────────
+.card {
+    background-color: var(--surface-2);
+    border: var(--border-size-1) solid var(--surface-3);
+    border-radius: var(--radius-conditional-3);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+
+    @media (prefers-reduced-motion: no-preference) {
+        transition: background-color 0.3s var(--ease-1), border-color 0.3s var(--ease-1);
+    }
+
+    header {
+        h3 {
+            font-size: var(--font-size-2);
+            max-inline-size: unset;
+        }
+
+        .hint {
+            color: var(--text-2);
+            font-size: var(--font-size-0);
+            margin-block-start: 0.25rem;
+        }
+    }
+
+    &--error {
+        border-color: var(--red-4);
+    }
+}
+
+// ── Definition list ────────────────────────────────────────
+dl {
+    display: grid;
+    gap: 0.5rem 1rem;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+
+    dt {
+        color: var(--text-2);
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+        font-size: var(--font-size-0);
+
+        .label {
+            font-style: italic;
+        }
+
+        code {
+            font-size: 0.8em;
+        }
+    }
+
+    dd {
+        font-weight: var(--font-weight-5);
+        margin: 0;
+    }
+
+    .fallback {
+        color: var(--red-6);
+        font-family: var(--font-mono);
+        font-size: var(--font-size-0);
+        font-weight: var(--font-weight-4);
+    }
+}
+
+// ── Lazy trigger button ────────────────────────────────────
+.load-btn {
+    background: var(--brand);
+    border: none;
+    border-radius: var(--radius-2);
+    color: var(--text-inverted-1);
+    cursor: pointer;
+    font-weight: var(--font-weight-6);
+    padding: 0.5rem 1.25rem;
+
+    &:hover {
+        opacity: 0.85;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        transition: opacity 0.15s var(--ease-1);
+    }
+}
+
+// ── Lazy demo styles (shared via host) ─────────────────────
+demo-lazy-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

@@ -1,7 +1,7 @@
 :host {
     display: flex;
     flex-direction: column;
-    height: 100dvh;
+    min-height: 100dvh;
     background-color: var(--surface-1);
 
     @media (prefers-reduced-motion: no-preference) {
@@ -11,85 +11,56 @@
     header {
         align-items: center;
         display: flex;
+        gap: 1.5rem;
         justify-content: space-between;
-        margin: 2rem;
+        padding: 1rem 2rem;
+        border-bottom: var(--border-size-1) solid var(--surface-3);
+
+        @media (prefers-reduced-motion: no-preference) {
+            transition: border-color 0.3s var(--ease-1);
+        }
 
         h1 {
             max-inline-size: unset;
+            font-size: var(--font-size-fluid-1);
 
             @media (prefers-reduced-motion: no-preference) {
                 transition: color 0.3s var(--ease-1);
             }
         }
+
+        nav {
+            display: flex;
+            gap: 0.25rem;
+            flex: 1;
+
+            a {
+                border-radius: var(--radius-2);
+                color: var(--text-2);
+                font-weight: var(--font-weight-5);
+                padding: 0.375rem 0.75rem;
+                text-decoration: none;
+
+                &:hover {
+                    color: var(--text-1);
+                    background-color: var(--surface-3);
+                }
+
+                &.active {
+                    color: var(--brand);
+                    background-color: var(--surface-2);
+                }
+
+                @media (prefers-reduced-motion: no-preference) {
+                    transition: color 0.2s var(--ease-1), background-color 0.2s var(--ease-1);
+                }
+            }
+        }
     }
 
     main {
-        align-items: stretch;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: center;
-        margin-block: auto;
-        padding: 4rem;
-
-        aside {
-            background-color: white;
-            border-radius: 1rem;
-            padding: 0.5rem 1rem 1rem;
-
-            form {
-                align-items: stretch;
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                justify-content: center;
-            }
-
-            fieldset {
-                display: grid;
-                gap: 1rem;
-                min-width: 10rem;
-
-                @media (prefers-reduced-motion: no-preference) {
-                    transition: color 0.3s var(--ease-1), border-color 0.3s var(--ease-1);
-                }
-            }
-        }
-
-        .output {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            min-height: 15rem;
-            width: 25rem;
-            max-width: 100%;
-            position: relative;
-
-            header {
-                display: flex;
-                flex-direction: column;
-                inset: 1rem 0.5rem auto 1rem;
-                position: absolute;
-
-                h2 {
-                    font-size: var(--font-size-fluid-1);
-                }
-
-                p {
-                    color: var(--text-2);
-                }
-            }
-        }
-
-        .card {
-            background-color: var(--surface-2);
-            border: var(--border-size-1) solid var(--surface-3);
-            border-radius: var(--radius-conditional-3);
-
-            @media (prefers-reduced-motion: no-preference) {
-                transition: background-color 0.3s var(--ease-1), border-color 0.3s var(--ease-1);
-            }
-        }
+        flex: 1;
+        flex-direction: column;
     }
 }
