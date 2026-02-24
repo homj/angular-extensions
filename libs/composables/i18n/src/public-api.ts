@@ -8,5 +8,6 @@
 
 export * from './composables/public-api';
 export * from './models/public-api';
+export * from './parsers/public-api';
 export * from './providers/public-api';
 export * from './service/public-api';

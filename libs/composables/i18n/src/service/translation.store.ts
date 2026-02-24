@@ -10,9 +10,12 @@ import {
     Signal
 } from '@angular/core';
 import { Language } from '../models/language';
-import { TranslationLoader, TranslationParams, TranslationResource } from '../models/translation.types';
+import { TranslationLoader, TranslationParams, TranslationParser, TranslationResource } from '../models/translation.types';
 import { DEFAULT_LANGUAGE } from '../tokens/defualt-language.tokens';
-import { TRANSLATION_LOADER } from '../tokens/translation.tokens';
+import { TRANSLATION_LOADER, TRANSLATION_PARSER } from '../tokens/translation.tokens';
+import { interpolationParser } from '../parsers/interpolation.parser';
+import { MaybeSignal } from '../models/maybe-signal';
+import { resolveSignalValue } from '../utils/resolve-signal-value';
 
 /** Sentinel key used internally for the global (unscoped) translation namespace. */
 const GLOBAL_SCOPE = Symbol('global');
@@ -38,13 +41,6 @@ const getScopeAndPath = (key: string) => {
 };
 
 /**
- * @internal
- * Replaces `{{ paramName }}` placeholders in a string with values from the params map.
- */
-const interpolate = (value: string, params: TranslationParams): string =>
-    value.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key: string) => String(params[key] ?? key));
-
-/**
  * Central store for all translation resources.
  *
  * Each scope (including the global scope) is backed by an Angular `resource()`
@@ -57,6 +53,8 @@ const interpolate = (value: string, params: TranslationParams): string =>
 @Injectable()
 export class TranslationStore {
     private readonly injector = inject(Injector);
+    private readonly parser: TranslationParser =
+        inject(TRANSLATION_PARSER, { optional: true }) ?? interpolationParser;
     private readonly resources = new Map<Scope, TranslationResource>();
     readonly language = signal<Language>(inject(DEFAULT_LANGUAGE));
 
@@ -105,31 +103,29 @@ export class TranslationStore {
     }
 
     /**
-     * Translates a key, optionally interpolating parameters.
+     * Translates a key, optionally formatting it with the active {@link TranslationParser}.
      *
      * This method reads from signal values internally — calling it inside a
      * reactive context (template, `computed`, `effect`) will cause a re-evaluation
      * when the underlying resource finishes loading.
      *
      * @param key - A global key (`'title'`) or scoped key (`'scope:key'`)
-     * @param params - Optional interpolation parameters
-     * @returns The translated string, or the key itself as a fallback while loading
+     * @param params - Optional parameters forwarded to the active parser
+     * @returns A signal that resolves to the formatted string, or the key as a fallback while loading
      */
     translate(
-        key: string | Signal<string>,
-        params?: TranslationParams | Signal<TranslationParams | undefined>
+        key: MaybeSignal<string>,
+        params?: MaybeSignal<TranslationParams | undefined>
     ): Signal<string> {
         return computed(() => {
-            const resolvedKey = isSignal(key) ? key() : key;
-            const resolvedParams = isSignal(params) ? params() : params;
+            const resolvedKey = resolveSignalValue(key);
+            const resolvedParams = resolveSignalValue(params);
             const { scope, path } = getScopeAndPath(resolvedKey);
 
             const resource = this.resources.get(scope);
 
             if (!resource) {
-                throw new Error(
-                    `Resource not defined for ${scope === GLOBAL_SCOPE ? 'global scope' : `scope '${scope as string}'`}`
-                );
+                return resolvedKey;
             }
 
             if (!resource.hasValue()) {
@@ -137,9 +133,9 @@ export class TranslationStore {
             }
 
             const data = resource.value();
-            const value = data?.[path] ?? resolvedKey; // TODO: Missing translation handler
+            const pattern = data?.[path] ?? resolvedKey; // TODO: Missing translation handler
 
-            return resolvedParams ? interpolate(value, resolvedParams) : value;
+            return resolvedParams ? this.parser(pattern, this.language(), resolvedParams) : pattern;
         });
     }
 }

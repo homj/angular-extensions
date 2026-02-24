@@ -1,11 +1,19 @@
 import { InjectionToken } from '@angular/core';
-import { TranslationLoader } from '../models/translation.types';
+import { TranslationLoader, TranslationParser } from '../models/translation.types';
 
 /**
  * Injection token for the global (unscoped) translation loader.
  * Provided by {@link provideTranslation}.
  */
 export const TRANSLATION_LOADER = new InjectionToken<TranslationLoader>('@homj/composables/i18n: global loader');
+
+/**
+ * Injection token for the active {@link TranslationParser}.
+ * Provided by {@link provideTranslation}; defaults to {@link interpolationParser} when absent.
+ */
+export const TRANSLATION_PARSER = new InjectionToken<TranslationParser>(
+    '@homj/composables/i18n: parser'
+);
 
 /**
  * Configuration object for a single translation scope.

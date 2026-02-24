@@ -1,9 +1,10 @@
 import { EnvironmentProviders, makeEnvironmentProviders, Provider, signal } from '@angular/core';
 import { Language } from '../models/language';
-import { TranslationLoader } from '../models/translation.types';
+import { TranslationLoader, TranslationParser } from '../models/translation.types';
 import { DEFAULT_LANGUAGE } from '../tokens/defualt-language.tokens';
-import { TRANSLATION_LOADER, TRANSLATION_SCOPE } from '../tokens/translation.tokens';
+import { TRANSLATION_LOADER, TRANSLATION_PARSER, TRANSLATION_SCOPE } from '../tokens/translation.tokens';
 import { TranslationStore } from '../service/translation.store';
+import { interpolationParser } from '../parsers/interpolation.parser';
 
 /**
  * Registers the {@link TranslationStore} and optionally a global translation loader
@@ -27,6 +28,14 @@ import { TranslationStore } from '../service/translation.store';
  * ```
  *
  * @example
+ * With MessageFormat:
+ * ```ts
+ * import MessageFormat from '@messageformat/core';
+ *
+ * provideTranslation(loader, 'en', withMessageFormat(MessageFormat))
+ * ```
+ *
+ * @example
  * Without a global loader (only scoped translations):
  * ```ts
  * provideTranslation()
@@ -34,12 +43,18 @@ import { TranslationStore } from '../service/translation.store';
  *
  * @param loader - Optional loader for the global (unscoped) translations
  * @param defaultLang - The initial active language tag
+ * @param parser - The {@link TranslationParser} to use for all scopes (defaults to {@link interpolationParser})
  * @returns Environment providers for the translation system
  */
-export function provideTranslation(loader?: TranslationLoader, defaultLang?: Language): EnvironmentProviders {
+export function provideTranslation(
+    loader?: TranslationLoader,
+    defaultLang?: Language,
+    parser: TranslationParser = interpolationParser
+): EnvironmentProviders {
     return makeEnvironmentProviders([
         TranslationStore,
         { provide: DEFAULT_LANGUAGE, useValue: defaultLang },
+        { provide: TRANSLATION_PARSER, useValue: parser },
         ...(loader ? [{ provide: TRANSLATION_LOADER, useValue: loader }] : [])
     ]);
 }
